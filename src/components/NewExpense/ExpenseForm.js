@@ -6,18 +6,31 @@ const ExpenseForm = () => {
   const [enteredTitle, setEnteredTitle] = useState('');
   const [enteredAmount, setEnteredAmount] = useState('');
   const [enteredDate, setEnteredDate] = useState('');
-  // input 에 대한 변경 이벤트를 수신할 때마다 input element 값을 읽는다면 그것은 항상 문자열일 것임
-  // 숫자를 저장한다고 하여도 문자열로써 숫자를 저장하는 것임
+  // const [userInput, setUserInput] = useState({
+  //   enteredTitle: '',
+  //   enteredAmount: '',
+  //   enteredDate: '',
+  // });
+
   const titleChangeHandler = event => {
     setEnteredTitle(event.target.value);
+    // setUserInput(prevState => {
+    //   return { ...prevState, enteredTitle: event.target.value };
+    // }); // 이전 상태에 따라 상태가 업데이트 된다면 이 함수 폼을 사용할 것
   };
 
   const amountChangeHandler = event => {
     setEnteredAmount(event.target.value);
+    // setUserInput(prevState => {
+    //   return { ...prevState, enteredAmount: event.target.value };
+    // });
   };
 
   const dateChangeHandler = event => {
     setEnteredDate(event.target.value);
+    // setUserInput(prevState => {
+    //   return { ...prevState, enteredDate: event.target.value };
+    // });
   };
 
   return (
