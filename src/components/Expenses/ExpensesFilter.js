@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './ExpenseFilter.css';
+import './ExpensesFilter.css';
 
-const ExpenseFilter = props => {
+const ExpensesFilter = props => {
   const dropdownChangeHandler = event => {
     props.onChangeFilter(event.target.value);
   };
@@ -22,4 +22,4 @@ const ExpenseFilter = props => {
   );
 };
 
-export default ExpenseFilter;
+export default ExpensesFilter;
