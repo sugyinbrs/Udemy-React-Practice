@@ -16,6 +16,20 @@ const Expenses = props => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
 
+  let expensesContent = <p>No expenses found.</p>;
+  // 변수 내에 JSX 컨텐츠 저장 가능
+
+  if (filteredExpenses.length > 0) {
+    expensesContent = filteredExpenses.map(expense => (
+      <ExpenseItem
+        key={expense.id}
+        title={expense.title}
+        amount={expense.amount}
+        date={expense.date}
+      />
+    ));
+  }
+
   return (
     <div>
       <Card className="expenses">
@@ -23,14 +37,7 @@ const Expenses = props => {
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
-        {filteredExpenses.map(expense => (
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          />
-        ))}
+        {expensesContent}
       </Card>
     </div>
   );
