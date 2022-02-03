@@ -2,9 +2,11 @@ import ChartBar from './ChartBar';
 import './Chart.css';
 
 const Chart = props => {
+  const { dataPoints } = props;
+
   return (
     <div className="chart">
-      {props.dataPoints.map(dataPoint => (
+      {dataPoints.map(dataPoint => (
         <ChartBar
           key={dataPoint.label}
           value={dataPoint.value}
