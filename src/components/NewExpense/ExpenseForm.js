@@ -40,7 +40,7 @@ const ExpenseForm = props => {
 
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount, // 숫자 변환
       date: new Date(enteredDate),
     };
 

@@ -1,13 +1,12 @@
 import './ChartBar.css';
 
 const ChartBar = props => {
-  const { label, max, value, maxValue } = props;
+  const { label, maxValue, value } = props;
 
   let barFillHeight = '0%';
 
-  if (max > 0) {
-    barFillHeight = Math.round((value / maxValue) * 100);
-    +'%';
+  if (maxValue > 0) {
+    barFillHeight = Math.round((value / maxValue) * 100) + '%';
   }
 
   return (
