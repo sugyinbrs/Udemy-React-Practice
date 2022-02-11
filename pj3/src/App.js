@@ -17,6 +17,8 @@ const App = () => {
       return updatedGoals;
     });
   };
+  // 1) 이벤트들의 전체 연쇄를 살펴보며 해당 오류를 짚어낼 수 있음
+  // 2) Dev Tool -> Console Tab 에 에러 메세지를 읽어낼 수 있음
 
   const deleteItemHandler = (goalId) => {
     setCourseGoals((prevGoals) => {
