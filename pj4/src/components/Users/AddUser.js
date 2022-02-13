@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Card from "../UI/Card";
 
 import styles from "./AddUser.module.css";
 
@@ -28,21 +29,23 @@ const AddUser = (props) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <div className={`${styles["add-users"]}`}>
-        <div className={`${styles["add-user"]}`}>
-          <label htmlFor="username">Username</label>
-          <input id="username" type="text" onChange={usernameChangeHandler} />
+    <Card>
+      <form onSubmit={submitHandler}>
+        <div className={`${styles["add-users"]}`}>
+          <div className={`${styles["add-user"]}`}>
+            <label htmlFor="username">Username</label>
+            <input id="username" type="text" onChange={usernameChangeHandler} />
+          </div>
+          <div className={`${styles["add-user"]}`}>
+            <label htmlFor="age">Age (Years)</label>
+            <input id="age" type="number" onChange={ageChangeHandler} />
+          </div>
         </div>
-        <div className={`${styles["add-user"]}`}>
-          <label htmlFor="age">Age (Years)</label>
-          <input id="age" type="number" onChange={ageChangeHandler} />
+        <div className={`${styles["add-user__actions"]}`}>
+          <button type="submit">Add User</button>
         </div>
-      </div>
-      <div className={`${styles["add-user__actions"]}`}>
-        <button type="submit">Add User</button>
-      </div>
-    </form>
+      </form>
+    </Card>
   );
 };
 
