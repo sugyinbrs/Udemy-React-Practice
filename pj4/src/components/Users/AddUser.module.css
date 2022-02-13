@@ -1,0 +1,29 @@
+.add-users {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.add-user {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-user:nth-child(1) {
+  margin-bottom: 8px;
+}
+
+.add-user label {
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.add-user input {
+  width: 500px;
+  border: 1px solid #ccc;
+  font: inherit;
+}
+
+.add-user__actions {
+  text-align: left;
+}
