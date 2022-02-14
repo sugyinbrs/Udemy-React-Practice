@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Card from "../UI/Card";
+import Button from "../UI/Button";
 
 import styles from "./AddUser.module.css";
 
@@ -42,7 +43,7 @@ const AddUser = (props) => {
           </div>
         </div>
         <div className={`${styles["add-user__actions"]}`}>
-          <button type="submit">Add User</button>
+          <Button type="submit">Add User</Button>
         </div>
       </form>
     </Card>
