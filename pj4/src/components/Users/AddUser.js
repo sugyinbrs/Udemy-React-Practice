@@ -24,6 +24,8 @@ const AddUser = (props) => {
       age: enteredAge,
     };
 
+    console.log("userData >>>", userData);
+
     props.onSaveUserData(userData);
     setEnteredUsername("");
     setEnteredAge("");
