@@ -37,11 +37,21 @@ const AddUser = (props) => {
         <div className={`${styles["add-users"]}`}>
           <div className={`${styles["add-user"]}`}>
             <label htmlFor="username">Username</label>
-            <input id="username" type="text" onChange={usernameChangeHandler} />
+            <input
+              id="username"
+              type="text"
+              value={enteredUsername}
+              onChange={usernameChangeHandler}
+            />
           </div>
           <div className={`${styles["add-user"]}`}>
             <label htmlFor="age">Age (Years)</label>
-            <input id="age" type="number" onChange={ageChangeHandler} />
+            <input
+              id="age"
+              type="number"
+              value={enteredAge}
+              onChange={ageChangeHandler}
+            />
           </div>
         </div>
         <div className={`${styles["add-user__actions"]}`}>
