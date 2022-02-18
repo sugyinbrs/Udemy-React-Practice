@@ -19,6 +19,16 @@ const AddUser = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
+    if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
+      return;
+    }
+    // trim() 사용하여 유저이름과 나이의 길이가 0과 같다면 return 으로 반환하여 submitHandler 함수 내 다음 순서 코드를 실행시키지 않음
+
+    if (enteredAge.trim() < 0) {
+      return;
+    }
+    // trim() 사용하여 나이의 길이가 0보다 작다면 return 으로 반환하여 submitHandler 함수 내 다음 순서 코드를 실행시키지 않음
+
     const userData = {
       username: enteredUsername,
       age: enteredAge,
