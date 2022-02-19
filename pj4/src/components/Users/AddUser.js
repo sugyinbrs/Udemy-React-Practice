@@ -66,7 +66,7 @@ const AddUser = (props) => {
         <ErrorModal
           title={error.title}
           message={error.message}
-          onClick={errorHandler}
+          onConfirm={errorHandler}
         />
       )}
       <Card>
