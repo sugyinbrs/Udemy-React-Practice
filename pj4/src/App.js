@@ -7,8 +7,10 @@ const App = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const addUserInforHandler = (data) => {
+    const userData = { ...data, id: Math.random().toString() };
+
     setUserInfo((prevUserInfo) => {
-      return [data, ...prevUserInfo];
+      return [userData, ...prevUserInfo];
     });
     setIsEditing(true);
   };
