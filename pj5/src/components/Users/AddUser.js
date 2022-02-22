@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Card from "../UI/Card";
 import Button from "../UI/Button";
 import ErrorModal from "../UI/ErrorModal";
+import Wrapper from "../Helpers/Wrapper";
 import classes from "./AddUser.module.css";
 
 const AddUser = (props) => {
@@ -64,35 +65,40 @@ const AddUser = (props) => {
   // 문제 1) 시맨틱 요소가 없는 수많은 <div> 요소가 발생하게 될 것임
   // 문제 2) 수많은 HTML 요소가 렌더될 것이며 이것은 앱이 느려지게 할 것임
 
-  return [
-    error && (
-      <ErrorModal
-        key="error-modal" // 동적으로 생성이 되지 않기 때문에 하드 코딩 할 수 있음
-        title={error.title}
-        message={error.message}
-        onConfirm={errorHandler}
-      />
-    ),
-    <Card key="add-user-card" className={classes.input}>
-      <form onSubmit={addUserHandler}>
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          value={enteredUsername}
-          onChange={usernameChangeHandler}
+  // 해결책으로 Wrapper 컴포넌트를 생성하여 div를 대신함
+  // Wrapper 컴포넌트 - 의미는 없으나 JSX 구문으로 채움
+
+  // 반드시 하나의 root 컴포넌트가 DOM에 렌더 되어야 함. JSX 요구사항에도 반드시 하나의 root 요소가 있어야 함. 그래서 아래와 같이 Wrapper 라는 하나의 root 요소를 둠
+  return (
+    <Wrapper>
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
         />
-        <label htmlFor="age">Age (Years)</label>
-        <input
-          id="age"
-          type="number"
-          value={enteredAge}
-          onChange={ageChangeHandler}
-        />
-        <Button type="submit">Add User</Button>
-      </form>
-    </Card>,
-  ];
+      )}
+      <Card className={classes.input}>
+        <form onSubmit={addUserHandler}>
+          <label htmlFor="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            value={enteredUsername}
+            onChange={usernameChangeHandler}
+          />
+          <label htmlFor="age">Age (Years)</label>
+          <input
+            id="age"
+            type="number"
+            value={enteredAge}
+            onChange={ageChangeHandler}
+          />
+          <Button type="submit">Add User</Button>
+        </form>
+      </Card>
+    </Wrapper>
+  );
 };
 
 export default AddUser;
