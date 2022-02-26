@@ -60,5 +60,8 @@ const AddUser = (props) => {
     </Wrapper>
   );
 };
+// input component 들은 비제어(Uncontrolled) Component 에 해당함
+// 내부 상태 즉, 내부에 반영된 값들이 리액트에 제어되는 것이 아니기 때문에 비제어 Component 라고 함
+// 기존 방식처럼 useState 로 input component 상태를 관리하는 것은 제어(Controlled) Component 에 해당함
 
 export default AddUser;
