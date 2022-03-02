@@ -1,4 +1,11 @@
+.center {
+  display: flex;
+  justify-content: center;
+}
+
 .card {
+  width: 500px;
+  margin-top: 40px;
   border-radius: 12px;
   background-color: white;
 }
