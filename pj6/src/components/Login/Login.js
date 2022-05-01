@@ -9,7 +9,7 @@ const emailReducer = (state, action) => {
     return { value: action.val, isValid: action.val.includes("@") };
   }
   if (action.type === "INPUT_BLUR") {
-    return { value: state.value, isValid: state.value.include("@") }; // email 에 입력한 최신 값에 접근하기 위해 기존 값을 불러오는 state.value 입력
+    return { value: state.value, isValid: state.value.includes("@") }; // email 에 입력한 최신 값에 접근하기 위해 기존 값을 불러오는 state.value 입력
   }
   return { value: "", isValid: false };
 };
