@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useReducer } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
@@ -11,8 +11,19 @@ const emailReducer = (state, action) => {
   if (action.type === "INPUT_BLUR") {
     return { value: state.value, isValid: state.value.include("@") }; // email 에 입력한 최신 값에 접근하기 위해 기존 값을 불러오는 state.value 입력
   }
-  return { value: "", isValid: null };
+  return { value: "", isValid: false };
 };
+
+const passwordReducer = (state, action) => {
+  if (action.type === "USER_INPUT") {
+    return { value: action.val, isValid: action.val.trim().length > 6 };
+  }
+  if (action.type === "INPUT_BLUR") {
+    return { value: state.value, isValid: state.value.trim().length > 6 };
+  }
+  return { value: "", isValid: false };
+};
+
 /* 
 Login 컴포넌트 함수 외부에서 위의 Reducer 함수를 선언, Login 컴포넌트 함수 내부의 데이터가 필요하지 않기 때문, 상호 작용할 필요가 없기 때문, 리액트가 위 함수를 실행할 때 리듀서 함수 내부에서 요청되고 사용되는 모든 데이터는 위 함수에 자동으로 전달될 것임
 
@@ -28,15 +39,20 @@ emailState 를 그룹화 하여 한 곳에서 관리할 수 있음
 const Login = (props) => {
   // const [enteredEmail, setEnteredEmail] = useState("");
   // const [emailIsValid, setEmailIsValid] = useState();
-  const [enteredPassword, setEnteredPassword] = useState("");
-  const [passwordIsValid, setPasswordIsValid] = useState();
+  // const [enteredPassword, setEnteredPassword] = useState("");
+  // const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: "",
-    isValid: false,
+    isValid: null,
   });
   // emailState 에 대한 초기 state 설정할 수 있음
+
+  const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
+    value: "",
+    isValid: null,
+  });
 
   // useEffect(() => {
   //   const identifier = setTimeout(() => {
@@ -60,17 +76,13 @@ const Login = (props) => {
     Action, 보통은 어떤 식별자 및 필드를 가진 객체, type 필드가 일어난 일을 설명해주고 유저가 입력한 값의 payload(val) 를 갖음
     */
 
-    setFormIsValid(
-      event.target.value.includes("@") && enteredPassword.trim().length > 6
-    );
+    setFormIsValid(event.target.value.includes("@") && passwordState.isValid);
   };
 
   const passwordChangeHandler = (event) => {
-    setEnteredPassword(event.target.value);
+    dispatchPassword({ type: "USER_INPUT", val: event.target.value });
 
-    setFormIsValid(
-      emailState.isValid.includes("@") && event.target.value.trim().length > 6
-    ); // 재검증하는 대신 emailState.isValid 이 true 인지 확인할 수 있음
+    setFormIsValid(emailState.isValid && event.target.value.trim().length > 6); // 재검증하는 대신 emailState.isValid 이 true 인지 확인할 수 있음
   };
 
   const validateEmailHandler = () => {
@@ -79,12 +91,12 @@ const Login = (props) => {
   };
 
   const validatePasswordHandler = () => {
-    setPasswordIsValid(enteredPassword.trim().length > 6);
+    dispatchPassword({ type: "INPUT_BLUR" });
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, enteredPassword);
+    props.onLogin(emailState.value, passwordState.value);
   };
 
   return (
@@ -106,14 +118,14 @@ const Login = (props) => {
         </div>
         <div
           className={`${classes.control} ${
-            passwordIsValid === false ? classes.invalid : ""
+            passwordState.isValid === false ? classes.invalid : ""
           }`}
         >
           <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
-            value={enteredPassword}
+            value={passwordState.value}
             onChange={passwordChangeHandler}
             onBlur={validatePasswordHandler}
           />
