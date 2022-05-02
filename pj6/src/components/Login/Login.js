@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
@@ -54,19 +54,25 @@ const Login = (props) => {
     isValid: null,
   });
 
-  // useEffect(() => {
-  //   const identifier = setTimeout(() => {
-  //     console.log("Checking form validity!");
-  //     setFormIsValid(
-  //       enteredEmail.includes("@") && enteredPassword.trim().length > 6
-  //     );
-  //   }, 500);
+  // Alias Assignment(별칭 할당) with Object Destructuring
+  // * useEffect 를 더욱 최적화, 불필요하게 실행되는 것을 피하기 위함
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState;
+  // (:) -> 등호의 왼쪽에서 사용 중, 값을 할당하는 것이 아님, 값(속성)을 추출하여 상수에 저장하기 위해 별칭을 할당하는 것임
 
-  //   return () => {
-  //     console.log("CLEANUP");
-  //     clearTimeout(identifier);
-  //   };
-  // }, [enteredEmail, enteredPassword]);
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log("Checking form validity!");
+      setFormIsValid(emailIsValid && passwordIsValid);
+    }, 500);
+
+    return () => {
+      console.log("CLEANUP");
+      clearTimeout(identifier);
+    };
+  }, [emailIsValid, passwordIsValid]);
+  // 위와 같이 작성한다면 값만 변경되고 유효성은 변경되지 않으면 위의 useEffect 함수는 실행되지 않음
+  // 예) 비밀번호 값 변경 시 초반에는 useEffect 가 실행되나 일단 비밀번호가 유효하면 문자 하나를 더 입력하더라도 console 창에서 유효성 출력의 추가 확인("Checking form validity!")이 일어나지 않음
 
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: "USER_INPUT", val: event.target.value });
@@ -76,13 +82,13 @@ const Login = (props) => {
     Action, 보통은 어떤 식별자 및 필드를 가진 객체, type 필드가 일어난 일을 설명해주고 유저가 입력한 값의 payload(val) 를 갖음
     */
 
-    setFormIsValid(event.target.value.includes("@") && passwordState.isValid);
+    // setFormIsValid(event.target.value.includes("@") && passwordState.isValid);
   };
 
   const passwordChangeHandler = (event) => {
     dispatchPassword({ type: "USER_INPUT", val: event.target.value });
 
-    setFormIsValid(emailState.isValid && event.target.value.trim().length > 6); // 재검증하는 대신 emailState.isValid 이 true 인지 확인할 수 있음
+    // setFormIsValid(emailState.isValid && event.target.value.trim().length > 6); // 재검증하는 대신 emailState.isValid 이 true 인지 확인할 수 있음
   };
 
   const validateEmailHandler = () => {
